@@ -43,6 +43,7 @@
         <bundle start-level="75">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.jakarta-regexp/1.4_1</bundle>
         <bundle start-level="75">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.joda-time/2.3_1</bundle>
         <bundle start-level="75">mvn:org.apache.unomi/unomi-api/${project.version}</bundle>
+        <bundle start-level="75">mvn:org.apache.unomi/unomi-consumer-kafka/${project.version}</bundle>
         <bundle start-level="75">mvn:org.apache.unomi/unomi-persistence-spi/${project.version}</bundle>
         <bundle start-level="76">mvn:org.apache.unomi/unomi-persistence-elasticsearch-core/${project.version}</bundle>
         <bundle start-level="77">mvn:org.apache.unomi/unomi-services/${project.version}</bundle>

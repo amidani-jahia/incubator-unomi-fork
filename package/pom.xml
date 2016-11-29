@@ -193,6 +193,17 @@
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>org.apache.unomi</groupId>
+                                            <artifactId>unomi-consumer-kafka</artifactId>
+                                            <version>${project.version}</version>
+                                            <classifier>kafkacfg</classifier>
+                                            <type>cfg</type>
+                                            <outputDirectory>
+                                                ${project.build.directory}/assembly/etc
+                                            </outputDirectory>
+                                            <destFileName>org.apache.unomi.kafka.cfg</destFileName>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>org.apache.unomi</groupId>
                                             <artifactId>unomi-wab</artifactId>
                                             <version>${project.version}</version>
                                             <classifier>unomicfg</classifier>

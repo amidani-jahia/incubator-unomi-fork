@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<blueprint xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+  http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+    <cm:property-placeholder persistent-id="org.apache.unomi.kafka"
+                             update-strategy="reload">
+
+        <cm:default-properties>
+            <cm:property name="bootstrap.servers" value="localhost"/>
+            <cm:property name="zookeeper.connect" value="localhost"/>
+            <cm:property name="group.id" value="testGroup"/>
+            <cm:property name="zookeeper.session.timeout.ms" value="400"/>
+            <cm:property name="zookeeper.sync.time.ms" value="200"/>
+            <cm:property name="auto.commit.interval.ms" value="1000"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <!-- Action executors -->
+
+    <bean id="kafkaConsumerService" class="org.apache.unomi.consumer.kafka.KafkaConsumerService">
+        <argument type="java.util.Map" index="0">
+            <map>
+                <entry key="bootstrap.servers" value="${bootstrap.servers}"/>
+                <entry key="zookeeper.connect" value="${zookeeper.connect}"/>
+                <entry key="group.id" value="${group.id}"/>
+                <entry key="zookeeper.session.timeout.ms" value="${zookeeper.session.timeout.ms}"/>
+                <entry key="zookeeper.sync.time.ms" value="${zookeeper.sync.time.ms}"/>
+                <entry key="auto.commit.interval.ms" value="${auto.commit.interval.ms}"/>
+            </map>
+        </argument>
+        <argument type="java.lang.String" index="1" value="${topic}"/>
+        <argument type="org.apache.unomi.api.services.ProfileService" index="2" ref="profileService"/>
+    </bean>
+
+    <reference id="profileService"
+               interface="org.apache.unomi.api.services.ProfileService"/>
+
+</blueprint>
