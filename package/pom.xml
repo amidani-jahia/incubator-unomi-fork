@@ -246,6 +246,17 @@
                                             </outputDirectory>
                                             <destFileName>org.apache.unomi.plugins.mail.cfg</destFileName>
                                         </artifactItem>
+                                        <artifactItem>
+                                            <groupId>org.apache.unomi</groupId>
+                                            <artifactId>unomi-router</artifactId>
+                                            <version>${project.version}</version>
+                                            <classifier>camelcfg</classifier>
+                                            <type>cfg</type>
+                                            <outputDirectory>
+                                                ${project.build.directory}/assembly/etc
+                                            </outputDirectory>
+                                            <destFileName>org.apache.unomi.camel.cfg</destFileName>
+                                        </artifactItem>
                                     </artifactItems>
                                     <!-- other configurations here -->
                                 </configuration>

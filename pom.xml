@@ -64,6 +64,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cxf.version>3.0.2</cxf.version>
+        <camel.version>2.18.1</camel.version>
         <version.jackson.core>2.6.6</version.jackson.core> <!-- version used by CXF -->
         <version.jackson.jaxb>2.6.6</version.jackson.jaxb> <!-- version used by CXF -->
         <version.karaf>3.0.8</version.karaf>
@@ -835,6 +836,7 @@
         <module>api</module>
         <module>persistence-spi</module>
         <module>persistence-elasticsearch</module>
+        <module>router</module>
         <module>services</module>
         <module>rest</module>
         <module>wab</module>
