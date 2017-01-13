@@ -18,7 +18,10 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
     <bean id="dataOutProcessor" class="org.apache.unomi.router.DataOutProcessor"/>
-    <bean id="dataInProcessor" class="org.apache.unomi.router.DataInProcessor"/>
+    <bean id="dataInProcessor" class="org.apache.unomi.router.DataInProcessor">
+        <property name="profileService" ref="profileService"/>
+    </bean>
+
 
     <camelContext xmlns="http://camel.apache.org/schema/blueprint" id="heavyProfileImportPrepare">
 
@@ -44,12 +47,20 @@
         </route>
     </camelContext>
     <camelContext xmlns="http://camel.apache.org/schema/blueprint" id="heavyProfileImportLoad">
+        <dataFormats>
+            <!-- here we define a Json data format with the id jack and that it should use the TestPojo as the class type when
+                 doing unmarshal. The unmarshalTypeName is optional, if not provided Camel will use a Map as the type -->
+            <json id="jacksonLoadMarsh" library="Jackson" unmarshalTypeName="org.apache.unomi.api.Profile"/>
+        </dataFormats>
         <route>
-            <from uri="kafka:localhost:9092?topic=camel-deposit&amp;groupId=unomi-import-group&amp;autoOffsetReset=earliest&amp;consumersCount=1" />
+            <from uri="kafka:localhost:9092?topic=camel-deposit&amp;autoCommitEnable=true&amp;groupId=unomi-import-group&amp;consumersCount=10" />
+            <unmarshal ref="jacksonLoadMarsh"/>
+            <process ref="dataInProcessor" />
             <to uri="log:org.apache.unomi.router?level=INFO"/>
-            <to uri="elasticsearch://local?operation=INDEX&amp;indexName=context&amp;indexType=profile"/>
         </route>
 
     </camelContext>
+
+    <reference id="profileService" interface="org.apache.unomi.api.services.ProfileService"/>
 
 </blueprint>

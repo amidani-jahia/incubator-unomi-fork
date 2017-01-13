@@ -21,6 +21,7 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.unomi.api.Profile;
+import org.apache.unomi.api.services.ProfileService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,9 @@ import java.util.Map;
  * Created by amidani on 29/12/2016.
  */
 public class DataInProcessor implements Processor {
+
+    private ProfileService profileService;
+
     @Override
     public void process(Exchange exchange)
             throws Exception {
@@ -45,11 +49,16 @@ public class DataInProcessor implements Processor {
             Object data = message.getBody();
 
 
-            System.out.println("topicName :: "
+            /*System.out.println("topicName :: "
                     + topicName + " partitionId :: "
                     + partitionId + " messageKey :: "
                     + messageKey + " message :: "
-                    + data + "\n");
+                    + data + "\n");*/
+            profileService.save((Profile) message.getBody());
         }
+    }
+
+    public void setProfileService(ProfileService profileService) {
+        this.profileService = profileService;
     }
 }

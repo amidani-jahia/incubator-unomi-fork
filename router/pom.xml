@@ -38,6 +38,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.unomi</groupId>
+            <artifactId>unomi-services</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
             <version>${camel.version}</version>
@@ -103,7 +109,8 @@
                             com.fasterxml.jackson.databind,
                             org.osgi.service.event;resolution:=optional,
                             org.apache.camel,
-                            org.apache.unomi.api
+                            org.apache.unomi.api,
+                            org.apache.unomi.api.services
                         </Import-Package>
                     </instructions>
                 </configuration>
